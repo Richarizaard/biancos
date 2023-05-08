@@ -1,0 +1,12 @@
+query recipes {
+  recipes {
+    id
+    name
+    description
+    toppings {
+      id
+      name
+      description
+    }
+  }
+}

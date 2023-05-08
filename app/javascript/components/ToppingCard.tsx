@@ -5,10 +5,10 @@ import {
   useUpdateToppingMutation,
 } from 'gql'
 
-interface ToppingProps {
+interface ToppingCardProps {
   topping: Topping
 }
-const Topping = ({ topping }: ToppingProps) => {
+const ToppingCard = ({ topping }: ToppingCardProps) => {
   const [name, setName] = useState<string>(topping.name)
   const [desc, setDesc] = useState<string>(topping.description)
   const [editState, setEditState] = useState<boolean>(false)
@@ -127,4 +127,4 @@ const Topping = ({ topping }: ToppingProps) => {
   )
 }
 
-export default Topping
+export default ToppingCard

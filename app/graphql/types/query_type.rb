@@ -8,6 +8,8 @@ module Types
 
     field :users, [Types::UserType], null: false, description: "Returns all users"
     field :toppings, [Types::ToppingType], null: false, description: "Returns all toppings"
+    field :recipes, [Types::RecipeType], null: false, description: "Returns all recipes"
+
 
     def users
       User.all.order(:last_name)
@@ -15,6 +17,10 @@ module Types
 
     def toppings
       Topping.all.order(:name)
+    end
+
+    def recipes
+      Recipe.all.order(:name)
     end
 
   end

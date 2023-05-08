@@ -1,0 +1,13 @@
+mutation createRecipe($input: CreateRecipeInput!) {
+  createRecipe(input: $input) {
+    recipe {
+      name
+      description
+      toppings {
+        id
+        name
+        description
+      }
+    }
+  }
+}

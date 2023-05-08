@@ -1,5 +1,5 @@
 import Header from 'components/Header'
-import Topping from 'domains/Topping'
+import ToppingCard from 'components/ToppingCard'
 import { useToppingsQuery } from 'gql'
 import React from 'react'
 import BiancoHeader1 from 'utils/typography/BiancoHeader1'
@@ -17,7 +17,7 @@ const Toppings = () => {
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))]">
         {data &&
           data.toppings.map((topping) => (
-            <Topping key={topping.id} topping={topping} />
+            <ToppingCard key={topping.id} topping={topping} />
           ))}
       </div>
     </div>

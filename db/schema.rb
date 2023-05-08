@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_155732) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_08_011346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "recipe_toppings", force: :cascade do |t|
+    t.bigint "topping_id"
+    t.bigint "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_toppings_on_recipe_id"
+    t.index ["topping_id"], name: "index_recipe_toppings_on_topping_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "toppings", force: :cascade do |t|
     t.string "name", null: false
