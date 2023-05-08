@@ -1,0 +1,16 @@
+overwrite: true
+schema: 'app/javascript/gql/schema.graphql'
+documents: 'app/javascript/**/*.{ts,tsx,graphql}'
+generates:
+  app/javascript/gql/index.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config:
+      gqlImport: '@apollo/client#gql'
+      useTypeImports: true
+      nonOptionalTypename: true
+      namingConvention:
+        default: change-case-all#pascalCase
+        enumValues: change-case-all#upperCase

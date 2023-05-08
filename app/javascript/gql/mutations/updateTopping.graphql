@@ -1,0 +1,9 @@
+mutation updateTopping($input: UpdateToppingInput!) {
+  updateTopping(input: $input) {
+    topping {
+      id
+      name
+      description
+    }
+  }
+}

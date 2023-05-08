@@ -1,0 +1,7 @@
+query toppings {
+    toppings {
+        id
+        name
+        description
+    }
+}
