@@ -14,6 +14,22 @@ const Topping = ({ topping }: ToppingProps) => {
   const [editState, setEditState] = useState<boolean>(false)
 
   const [updateTopping] = useUpdateToppingMutation()
+  const handleUpdate = async () => {
+    // Exit edit state
+    setEditState(false)
+
+    // Update topping's name/desc
+    await updateTopping({
+      variables: {
+        input: {
+          id: topping.id,
+          name: name,
+          description: desc,
+        },
+      },
+    })
+  }
+
   const [deleteTopping] = useDeleteToppingMutation({
     update: (cache, { data }) => {
       // Only continue if valid deleted topping id is returned
@@ -32,32 +48,6 @@ const Topping = ({ topping }: ToppingProps) => {
       }
     },
   })
-
-  const handleCancel = () => {
-    // Exit edit state
-    setEditState(false)
-
-    // Reset state values
-    setName(topping.name)
-    setDesc(topping.description)
-  }
-
-  const handleSubmit = async () => {
-    // Exit edit state
-    setEditState(false)
-
-    // Update topping's name/desc
-    await updateTopping({
-      variables: {
-        input: {
-          id: topping.id,
-          name: name,
-          description: desc,
-        },
-      },
-    })
-  }
-
   const handleDelete = async () => {
     // Exit edit state
     setEditState(false)
@@ -70,6 +60,15 @@ const Topping = ({ topping }: ToppingProps) => {
         },
       },
     })
+  }
+
+  const handleCancel = () => {
+    // Exit edit state
+    setEditState(false)
+
+    // Reset state values
+    setName(topping.name)
+    setDesc(topping.description)
   }
 
   return (
@@ -93,7 +92,7 @@ const Topping = ({ topping }: ToppingProps) => {
       </div> */}
       <textarea
         disabled={!editState}
-        className={`text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none bg-white ${
+        className={`text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none overflow-hidden bg-white ${
           editState ? 'border-2 border-bianco-red' : ''
         }`}
         rows={1}
@@ -113,9 +112,9 @@ const Topping = ({ topping }: ToppingProps) => {
       <div className="flex gap-4 pt-4">
         <button
           className="rounded-lg text-lev-green p-2 px-4"
-          onClick={() => (editState ? handleSubmit() : setEditState(true))}
+          onClick={() => (editState ? handleUpdate() : setEditState(true))}
         >
-          {editState ? 'Submit' : 'Edit'}
+          {editState ? 'Update' : 'Edit'}
         </button>
         <button
           className="rounded-lg bg-bianco-pink text-white p-2 px-4"
