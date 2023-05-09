@@ -1,11 +1,13 @@
 import Header from 'components/Header'
 import RecipeCard from 'components/RecipeCard'
+import { SliderContext } from 'components/SliderContext'
 import { useRecipesQuery } from 'gql'
-import React from 'react'
+import React, { useContext } from 'react'
 import BiancoHeader1 from 'utils/typography/BiancoHeader1'
 
 const Recipes = () => {
   const { data } = useRecipesQuery()
+  const { isChef } = useContext(SliderContext)
 
   return (
     <div className="container mx-auto px-6 sm:px-24 ">

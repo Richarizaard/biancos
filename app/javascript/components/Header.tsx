@@ -1,7 +1,11 @@
-import React from 'react'
+import SliderButton from 'components/SliderButton'
+import { SliderContext } from 'components/SliderContext'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+  const { isChef } = useContext(SliderContext)
+
   return (
     <nav className="">
       <div className="flex w-full justify-between items-center text-lg font-medium">
@@ -29,9 +33,19 @@ const Header = () => {
           >
             About us
           </Link>
-          <button className="rounded-lg bg-bianco-pink text-white p-2 px-4">
-            Log in
-          </button>
+          <div className="flex items-center text-sm">
+            <span
+              className={`${isChef ? 'text-bianco-pink' : 'text-bianco-red'}`}
+            >
+              Owner
+            </span>
+            <SliderButton />
+            <span
+              className={`${isChef ? 'text-bianco-red' : 'text-bianco-pink'}`}
+            >
+              Chef
+            </span>
+          </div>
         </div>
       </div>
     </nav>
