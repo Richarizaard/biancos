@@ -9,6 +9,8 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const [desc, setDesc] = useState<string>(recipe.description)
   //   const [ingredients, setIngredients] = useState<Topping[]>(recipe.toppings)
   const [editState, setEditState] = useState<boolean>(false)
+  const disableUpdate =
+    editState && name === recipe.name && desc === recipe.description
 
   //   const [updateTopping] = useUpdateToppingMutation()
   const handleUpdate = async () => {
@@ -71,22 +73,8 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
   return (
     <div
       id={'recipe-' + recipe.id}
-      className="flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
+      className="min-h-[250px] flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
     >
-      {/* <img
-      className="rounded-full max-w-[50px]"
-      src={data?.companyInfo?.imgUrl || ''}
-      alt="CompanyLogo"
-    /> */}
-      {/* <div
-        contentEditable={editState}
-        suppressContentEditableWarning={true}
-        onInput={(e: any) => setName(e.currentTarget.textContent || "")}
-        className={`text-lg rounded-lg font-medium md:text-xl mb-3 md:mb-5 focus:outline-none ${
-            editState ? 'border-2 border-bianco-red' : ''}`}
-      >
-        {name}
-      </div> */}
       <textarea
         disabled={!editState}
         className={`text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none overflow-hidden bg-white ${
@@ -114,8 +102,11 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
       <div className="flex gap-4 pt-4">
         <button
-          className="rounded-lg text-lev-green p-2 px-4"
+          className={`rounded-lg p-2 px-4 ${
+            disableUpdate ? 'text-gray-200' : ''
+          }`}
           onClick={() => (editState ? handleUpdate() : setEditState(true))}
+          disabled={disableUpdate}
         >
           {editState ? 'Update' : 'Edit'}
         </button>

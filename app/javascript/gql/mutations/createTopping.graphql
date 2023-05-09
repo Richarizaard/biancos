@@ -1,0 +1,9 @@
+mutation createTopping($input: CreateToppingInput!) {
+  createTopping(input: $input) {
+    topping {
+      id
+      name
+      description
+    }
+  }
+}

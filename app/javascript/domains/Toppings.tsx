@@ -1,8 +1,9 @@
+import EmptyToppingCard from 'components/EmptyToppingCard'
 import Header from 'components/Header'
 import { SliderContext } from 'components/SliderContext'
 import ToppingCard from 'components/ToppingCard'
 import { useToppingsQuery } from 'gql'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import BiancoHeader1 from 'utils/typography/BiancoHeader1'
 
 const Toppings = () => {
@@ -16,12 +17,14 @@ const Toppings = () => {
         <BiancoHeader1 className="text-bianco-red sm:text-4xl">
           Toppings
         </BiancoHeader1>
-        <div>
+        <span>
           The world revolves around pizza. View, update, create, and delete
           pizza toppings here! 🍕
-        </div>
+        </span>
+        <span className="font-medium text-end">{data?.toppings?.length} toppings</span>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))]">
+        {!isChef && <EmptyToppingCard />}
         {data &&
           data.toppings.map((topping) => (
             <ToppingCard key={topping.id} topping={topping} />

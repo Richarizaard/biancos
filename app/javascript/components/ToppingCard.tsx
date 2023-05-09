@@ -12,22 +12,29 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
   const [name, setName] = useState<string>(topping.name)
   const [desc, setDesc] = useState<string>(topping.description)
   const [editState, setEditState] = useState<boolean>(false)
+  const disableUpdate =
+    editState && name === topping.name && desc === topping.description
 
   const [updateTopping] = useUpdateToppingMutation()
   const handleUpdate = async () => {
-    // Exit edit state
-    setEditState(false)
-
     // Update topping's name/desc
-    await updateTopping({
-      variables: {
-        input: {
-          id: topping.id,
-          name: name,
-          description: desc,
+    try {
+      const { errors } = await updateTopping({
+        variables: {
+          input: {
+            id: topping.id,
+            name: name,
+            description: desc,
+          },
         },
-      },
-    })
+      })
+
+      // Exit edit state if no exceptions are caught
+      setEditState(false)
+
+    } catch (error: unknown) {
+      console.log(error) // toast to notify entry exists
+    }
   }
 
   const [deleteTopping] = useDeleteToppingMutation({
@@ -62,7 +69,7 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
     })
   }
 
-  const handleCancel = () => {
+  const resetStates = () => {
     // Exit edit state
     setEditState(false)
 
@@ -74,22 +81,8 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
   return (
     <div
       id={'topping-' + topping.id}
-      className="flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
+      className="min-h-[250px] flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
     >
-      {/* <img
-      className="rounded-full max-w-[50px]"
-      src={data?.companyInfo?.imgUrl || ''}
-      alt="CompanyLogo"
-    /> */}
-      {/* <div
-        contentEditable={editState}
-        suppressContentEditableWarning={true}
-        onInput={(e: any) => setName(e.currentTarget.textContent || "")}
-        className={`text-lg rounded-lg font-medium md:text-xl mb-3 md:mb-5 focus:outline-none ${
-            editState ? 'border-2 border-bianco-red' : ''}`}
-      >
-        {name}
-      </div> */}
       <textarea
         disabled={!editState}
         className={`text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none overflow-hidden bg-white ${
@@ -111,14 +104,17 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
 
       <div className="flex gap-4 pt-4">
         <button
-          className="rounded-lg text-lev-green p-2 px-4"
+          className={`rounded-lg p-2 px-4 ${
+            disableUpdate ? 'text-gray-200' : ''
+          }`}
           onClick={() => (editState ? handleUpdate() : setEditState(true))}
+          disabled={disableUpdate}
         >
           {editState ? 'Update' : 'Edit'}
         </button>
         <button
           className="rounded-lg bg-bianco-pink text-white p-2 px-4"
-          onClick={() => (editState ? handleCancel() : handleDelete())}
+          onClick={() => (editState ? resetStates() : handleDelete())}
         >
           {editState ? 'Cancel' : 'Delete'}
         </button>

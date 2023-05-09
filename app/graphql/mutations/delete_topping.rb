@@ -9,8 +9,8 @@ module Mutations
         topping_found = Topping.find_by(id: id)
 
         # Raise graphql error if topping isn't found
-        raise GraphQL::ExecutationError.new("Topping: #{name} not found",
-         extensions: { code: 'NOT_FOUND'}) unless topping_found
+        raise GraphQL::ExecutionError.new("Topping: #{name} not found",
+         extensions: { code: 'TOPPING_NOT_EXISTS'}) unless topping_found
 
         # Remove topping
         topping_found.destroy
