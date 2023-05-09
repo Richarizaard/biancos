@@ -7,7 +7,6 @@ const Homepage = () => {
   return (
     <div className="container mx-auto px-6 sm:px-24">
       <Header />
-      <div>{isChef ? 'I am a chef' : 'I am an owner'}</div>
     </div>
   )
 }

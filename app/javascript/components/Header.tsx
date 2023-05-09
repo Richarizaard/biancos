@@ -7,7 +7,6 @@ const Header = () => {
   const { isChef } = useContext(SliderContext)
 
   return (
-    <nav className="">
       <div className="flex w-full justify-between items-center text-lg font-medium">
         <div>
           <Link to={'/'} className="text-bianco-red text-4xl font-bold">
@@ -27,12 +26,6 @@ const Header = () => {
           >
             Recipes
           </Link>
-          <Link
-            to={'/about-us'}
-            className="hover:bg-bianco-pink py-1 px-3 rounded-lg"
-          >
-            About us
-          </Link>
           <div className="flex items-center text-sm">
             <span
               className={`${isChef ? 'text-bianco-pink' : 'text-bianco-red'}`}
@@ -48,7 +41,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </nav>
   )
 }
 
