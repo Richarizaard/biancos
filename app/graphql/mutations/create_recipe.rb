@@ -8,7 +8,7 @@ module Mutations
 
       def resolve(name:, description:, topping_ids:)
         # Create recipe
-        const recipe = Recipe.create(name: name, description: description)
+        recipe = Recipe.create(name: name, description: description)
 
         # Create association in recipe_toppings for each topping added to the pizza
         topping_ids.each do |topping_id|

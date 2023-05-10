@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { Recipe, Topping } from 'gql'
+import {
+  Recipe,
+  Topping,
+  useDeleteRecipeMutation,
+  useUpdateRecipeMutation,
+} from 'gql'
+import ToppingsTag from 'components/ToppingsTag'
 
 interface RecipeCardProps {
   recipe: Recipe
@@ -7,58 +13,65 @@ interface RecipeCardProps {
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const [name, setName] = useState<string>(recipe.name)
   const [desc, setDesc] = useState<string>(recipe.description)
-  //   const [ingredients, setIngredients] = useState<Topping[]>(recipe.toppings)
+  const [toppings, setToppings] = useState<Topping[]>(recipe.toppings)
+
   const [editState, setEditState] = useState<boolean>(false)
   const disableUpdate =
-    editState && name === recipe.name && desc === recipe.description
+    editState && name === recipe.name && desc === recipe.description && toppings === recipe.toppings
 
-  //   const [updateTopping] = useUpdateToppingMutation()
+  const [updateRecipe] = useUpdateRecipeMutation()
   const handleUpdate = async () => {
-    // Exit edit state
-    setEditState(false)
-
     // Update topping's name/desc
-    //   await updateTopping({
-    //     variables: {
-    //       input: {
-    //         id: topping.id,
-    //         name: name,
-    //         description: desc,
-    //       },
-    //     }, Maybe<Array<Recipe>>
-    //   })
+    try {
+      await updateRecipe({
+        variables: {
+          input: {
+            id: recipe.id,
+            name: name,
+            description: desc,
+            toppingIds: toppings.filter(topping => !recipe.toppings.includes(topping)).map(topping => topping.id),
+          },
+        },
+      })
+
+      // Exit edit state if no exceptions are caught
+      setEditState(false)
+    } catch (error: unknown) {
+      // Toast
+    }
   }
 
-  // const [deleteTopping] = useDeleteToppingMutation({
-  //   update: (cache, { data }) => {
-  //     // Only continue if valid deleted topping id is returned
-  //     if (data?.deleteTopping?.id) {
-  //       cache.modify({
-  //         fields: {
-  //           toppings(existingToppings = [], { readField }) {
-  //             // Filter out the deleted topping from the cache
-  //             return existingToppings.filter(
-  //               (toppingRef: Topping) =>
-  //                 data?.deleteTopping?.id !== readField('id', toppingRef)
-  //             )
-  //           },
-  //         },
-  //       })
-  //     }
-  //   },
-  // })
+  const [deleteRecipe] = useDeleteRecipeMutation({
+    update: (cache, { data }) => {
+      // Only continue if valid deleted topping id is returned
+      if (data?.deleteRecipe?.id) {
+        cache.modify({
+          fields: {
+            recipes(existingRecipes = [], { readField }) {
+              // Filter out the deleted recipe from the cache
+              return existingRecipes.filter(
+                (recipeRef: Recipe) =>
+                  data?.deleteRecipe?.id !== readField('id', recipeRef)
+              )
+            },
+          },
+        })
+      }
+    },
+  })
+
   const handleDelete = async () => {
     // Exit edit state
     setEditState(false)
 
-    //   // Delete topping
-    //   await deleteTopping({
-    //     variables: {
-    //       input: {
-    //         id: topping.id,
-    //       },
-    //     },
-    //   })
+    // Delete topping
+    await deleteRecipe({
+      variables: {
+        input: {
+          id: recipe.id,
+        },
+      },
+    })
   }
 
   const handleCancel = () => {
@@ -68,12 +81,13 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
     // Reset state values
     setName(recipe.name)
     setDesc(recipe.description)
+    setToppings(recipe.toppings)
   }
 
   return (
     <div
       id={'recipe-' + recipe.id}
-      className="min-h-[250px] flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
+      className="min-h-[250px] max-w-[250px] flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
     >
       <textarea
         disabled={!editState}
@@ -93,12 +107,11 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         value={desc}
         onChange={(e: any) => setDesc(e.target.value)}
       />
-      {/* <div className="w-full flex justify-start">
-        {' '}
-        {recipe.toppings?.map((topping) => {
-          return <div className="border-2 px-2 m-1 border-bianco-salmon text-bianco-red rounded-lg" key={topping.id}>{topping.name}</div>
-        })}
-      </div> */}
+      <ToppingsTag
+        toppings={toppings}
+        setToppings={setToppings}
+        isEditOrCreate={editState}
+      />
 
       <div className="flex gap-4 pt-4">
         <button

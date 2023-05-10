@@ -1,3 +1,4 @@
+import EmptyRecipeCard from 'components/EmptyRecipeCard'
 import Header from 'components/Header'
 import RecipeCard from 'components/RecipeCard'
 import { SliderContext } from 'components/SliderContext'
@@ -20,8 +21,12 @@ const Recipes = () => {
           The world revolves around pizza. View, update, create, and delete
           pizza recipes here! 🍕
         </div>
+        <span className="font-medium text-end">
+          {data?.recipes?.length} recipes
+        </span>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))]">
+        {isChef && <EmptyRecipeCard />}
         {data &&
           data.recipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />

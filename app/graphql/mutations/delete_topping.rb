@@ -1,8 +1,8 @@
 module Mutations
     class DeleteTopping < BaseMutation
-      field :id, ID, description: 'ID of the deleted topping'
+      field :id, ID, description: 'ID of deleted topping'
   
-      argument :id, ID, required: true, description: 'ID of the topping to be deleted'
+      argument :id, ID, required: true, description: 'ID of deleted topping'
   
       def resolve(id:)
         # Look for topping by id
