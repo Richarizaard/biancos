@@ -18,8 +18,8 @@ const Toppings = () => {
           Toppings
         </BiancoHeader1>
         <span>
-          The world revolves around pizza. View, update, create, and delete
-          pizza toppings here! 🍕
+          The world revolves around pizza. But you can't have pizza without toppings! View, update, create, and delete
+          pizza toppings here! 🍕 (Sorry, owners only)
         </span>
         <span className="font-medium text-end">{data?.toppings?.length} toppings</span>
       </div>

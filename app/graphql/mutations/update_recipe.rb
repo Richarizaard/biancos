@@ -1,17 +1,12 @@
 module Mutations
     class UpdateRecipe < BaseMutation
-      # TODO: define return fields
-      # field :post, Types::PostType, null: false
       field :recipe, Types::RecipeType
   
-      # TODO: define arguments
-      # argument :name, String, required: true
       argument :id, ID, required: true
       argument :name, String, description: 'Updated recipe name'
       argument :description, String, description: 'Updated description'
       argument :topping_ids, [ID], description: 'Updated topping ids'
   
-      # TODO: define resolve method
       def resolve(id:, name:, description:, topping_ids:)
         recipe = Recipe.find(id)  
 
@@ -19,15 +14,19 @@ module Mutations
         recipe.update(name: name) unless !name
         recipe.update(description: description) unless !description
 
-        # Look and see if the recipe contains this topping
-        # If so, delete it. If not, create it.
+        # Get a list of the IDs of the toppings in recipe_toppings
+        recipe_toppings_ids = recipe.recipe_toppings.pluck(:id)
+
+        # Remove any toppings in recipe_toppings that aren't in topping_ids
+        recipe.recipe_toppings.each do |topping|
+          next if topping_ids.include?(topping.id)
+          topping.destroy
+        end
+
+        # Add any toppings to recipe_toppings that aren't in topping_ids
         topping_ids.each do |topping_id|
-            topping_found = recipe.recipe_toppings.find_by(topping_id: topping_id)
-            if topping_found.nil?
-                recipe.recipe_toppings.create(topping_id: topping_id)
-            else
-                topping_found.destroy
-            end
+          next if recipe_toppings_ids.include?(topping_id)
+          recipe.recipe_toppings.create(topping_id: topping_id)
         end
 
         { recipe: recipe }

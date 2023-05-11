@@ -29,7 +29,8 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             id: recipe.id,
             name: name,
             description: desc,
-            toppingIds: toppings.filter(topping => !recipe.toppings.includes(topping)).map(topping => topping.id),
+            // toppingIds: toppings.filter(topping => !recipe.toppings.includes(topping)).map(topping => topping.id),
+            toppingIds: toppings.map(topping => topping.id),
           },
         },
       })

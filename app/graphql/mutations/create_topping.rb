@@ -1,11 +1,7 @@
 module Mutations
     class CreateTopping < BaseMutation
-      # TODO: define return fields
-      # field :post, Types::PostType, null: false
       field :topping, Types::ToppingType
   
-      # TODO: define arguments
-      # argument :name, String, required: true
       argument :name, String, required: true, description: 'Name of deleted topping'
       argument :description, String, required: true, description: 'Description of deleted topping'
   

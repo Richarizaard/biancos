@@ -1,26 +1,23 @@
 module Mutations
   class UpdateTopping < BaseMutation
-    # TODO: define return fields
-    # field :post, Types::PostType, null: false
     field :topping, Types::ToppingType
 
-    # TODO: define arguments
-    # argument :name, String, required: true
     argument :id, ID, required: true
     argument :name, String
     argument :description, String
 
     # TODO: define resolve method
     def resolve(id:, name:, description:)
-      topping_found = Topping.find(id)
+      topping = Topping.find(id)
+      dup_topping = Topping.find_by(name: name)
 
       # Raise graphql error if topping already exists
       raise GraphQL::ExecutionError.new("Topping: #{name} already exists",
-      extensions: { code: 'TOPPING_EXISTS'}) if Topping.find_by(name: name).present?
+      extensions: { code: 'TOPPING_EXISTS'}) if dup_topping.id != id.to_i
 
-      topping_found.update(name: name, description: description)
+      topping.update(name: name, description: description)
 
-      { topping: topping_found }
+      { topping: topping }
     end
   end
 end

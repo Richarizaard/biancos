@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
-import {
-  RecipesDocument,
-  useCreateRecipeMutation,
-} from 'gql'
+import { RecipesDocument, Topping, useCreateRecipeMutation } from 'gql'
+import ToppingsTag from 'components/ToppingsTag'
 
 const EmptyRecipeCard = () => {
   // Will be empty by default
   const [name, setName] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
-  const [toppingIds, setToppingIds] = useState<string[]>([])
+  const [toppings, setToppings] = useState<Topping[]>([])
 
   // State to control whether or not a new recipe is being created
   const [isCreating, setIsCreating] = useState<boolean>(false)
@@ -27,7 +25,7 @@ const EmptyRecipeCard = () => {
         input: {
           name: name,
           description: desc,
-          toppingIds: toppingIds,
+          toppingIds: toppings.map((topping) => topping.id),
         },
       },
     })
@@ -49,7 +47,7 @@ const EmptyRecipeCard = () => {
     // Reset state values
     setName('')
     setDesc('')
-    setToppingIds([])
+    setToppings([])
   }
 
   return (
@@ -77,7 +75,11 @@ const EmptyRecipeCard = () => {
             onChange={(e: any) => setDesc(e.target.value)}
             placeholder={'Recipe description'}
           />
-
+          <ToppingsTag
+            toppings={toppings}
+            setToppings={setToppings}
+            isEditOrCreate={isCreating}
+          />
           <div className="flex gap-4 pt-4">
             <button
               className={`rounded-lg p-2 px-4 ${

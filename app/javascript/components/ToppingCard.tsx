@@ -32,8 +32,8 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
       // Exit edit state if no exceptions are caught
       setEditState(false)
 
-    } catch (error: unknown) {
-      console.log(error) // toast to notify entry exists
+    } catch (error: any) {
+      console.log(error.message) // toast to notify entry exists
     }
   }
 

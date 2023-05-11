@@ -18,11 +18,11 @@ const Recipes = () => {
           Recipes
         </BiancoHeader1>
         <div>
-          The world revolves around pizza. View, update, create, and delete
-          pizza recipes here! 🍕
+        The world revolves around pizza. But you can't have pizza without recipes! View, update, create, and delete
+          pizza recipes here! 🍕 (Sorry, chefs only)
         </div>
         <span className="font-medium text-end">
-          {data?.recipes?.length} recipes
+          {data?.recipes?.length || 0} recipes
         </span>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))]">

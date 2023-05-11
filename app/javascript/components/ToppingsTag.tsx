@@ -41,13 +41,13 @@ const ToppingsTag = ({
     <div className="w-full flex flex-wrap justify-start py-2">
       {toppings.map((topping) => {
         return (
-          <div className="border-2 px-1 m-1 border-bianco-salmon text-bianco-red rounded-lg flex gap-1">
+          <div className="border-2 px-1 m-1 border-bianco-salmon text-white bg-bianco-pink rounded-lg flex gap-1">
             <div className="" key={topping.id}>
               {topping.name}
             </div>
             {isEditOrCreate && (
               <div
-                className="cursor-pointer"
+                className="cursor-pointer text-sm"
                 onClick={() => handleRemoveTag(topping)}
               >
                 x
