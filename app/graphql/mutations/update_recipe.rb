@@ -1,6 +1,6 @@
 module Mutations
     class UpdateRecipe < BaseMutation
-      field :recipe, Types::RecipeType
+      field :recipe, Types::RecipeType, description: 'Updated recipe object'
   
       argument :id, ID, required: true
       argument :name, String, description: 'Updated recipe name'

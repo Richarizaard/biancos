@@ -4,16 +4,18 @@ import {
   useDeleteToppingMutation,
   useUpdateToppingMutation,
 } from 'gql'
-import { ToastContainer, toast } from 'react-toastify'
 
 interface ToppingCardProps {
   topping: Topping
   notify: (msg: string) => void
 }
 const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
+  // Set initial states
   const [name, setName] = useState<string>(topping.name)
   const [desc, setDesc] = useState<string>(topping.description)
   const [editState, setEditState] = useState<boolean>(false)
+
+  // Flag to allow enabled update button
   const disableUpdate =
     editState && name === topping.name && desc === topping.description
 

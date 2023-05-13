@@ -1,13 +1,13 @@
 module Mutations
     class CreateRecipe < BaseMutation
-      field :recipe, Types::RecipeType, description: 'Created recipe'
+      field :recipe, Types::RecipeType, description: 'Newly create recipe'
   
       argument :name, String, description: 'Name of the created recipe'
       argument :description, String, description: 'Description of the created recipe'
       argument :topping_ids, [ID], description: 'IDs of the recipes ingredients'
 
       def resolve(name:, description:, topping_ids:)
-        # Create recipe
+        # Create a new recipe
         recipe = Recipe.new(name: name, description: description)
 
         # Create association in recipe_toppings for each topping added to the pizza

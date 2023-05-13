@@ -6,7 +6,6 @@ import {
   useUpdateRecipeMutation,
 } from 'gql'
 import ToppingsTag from 'components/ToppingsTag'
-import { ToastContainer, toast } from 'react-toastify'
 
 interface RecipeCardProps {
   recipe: Recipe

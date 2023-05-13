@@ -5,12 +5,12 @@ module Mutations
       argument :id, ID, required: true, description: 'ID of deleted recipe'
   
       def resolve(id:)
-        # Look for topping by id
+        # Look for recipe by id
         recipe = Recipe.find(id)
 
-        # Raise graphql error if topping isn't found
+        # Raise graphql error if recipe isn't found
         raise GraphQL::ExecutionError.new("Recipe id: #{id} not found",
-         extensions: { code: 'EXCIPE_NOT_EXISTS'}) unless recipe
+         extensions: { code: 'RECIPE_NOT_EXISTS'}) unless recipe
 
         # Remove recipe
         recipe.destroy

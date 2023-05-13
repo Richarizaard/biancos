@@ -7,6 +7,8 @@ interface ToppingsTagProps {
   isEditOrCreate: boolean
 }
 
+// This component handles the updating of state vars for toppings
+// This does NOT call any queries. Queries are handled in the parent component
 const ToppingsTag = ({
   toppings,
   setToppings,
@@ -19,12 +21,14 @@ const ToppingsTag = ({
     if (!isEditOrCreate) setOpenDropdown(false)
   }, [isEditOrCreate])
 
+  // Appends added topping to state array and closes dropdown
   const handleAddTag = (addedTopping: Topping) => {
     const combinedToppings = [...toppings, addedTopping]
     setToppings(combinedToppings)
     setOpenDropdown(false)
   }
 
+  // Removes ropping from state array and closes dropdown
   const handleRemoveTag = (removedTopping: Topping) => {
     const combinedToppings = toppings.filter(
       (topping) => topping.id !== removedTopping.id
@@ -33,6 +37,8 @@ const ToppingsTag = ({
     setOpenDropdown(false)
   }
 
+  // Filters selected toppings from all toppings to keep topping selection
+  // in dropdown updated.
   const filteredToppings = data?.toppings.filter(
     (topping) => !toppings.some((existing) => existing.id === topping.id)
   )
