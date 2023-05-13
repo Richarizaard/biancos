@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { RecipesDocument, Topping, useCreateRecipeMutation } from 'gql'
 import ToppingsTag from 'components/ToppingsTag'
+import { SliderContext } from 'components/SliderContext'
 
 interface EmptyRecipeCardProps {
   notify: (msg: string) => void
@@ -10,6 +11,8 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
   const [name, setName] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
   const [toppings, setToppings] = useState<Topping[]>([])
+
+  const { isChef } = useContext(SliderContext)
 
   // State to control whether or not a new recipe is being created
   const [isCreating, setIsCreating] = useState<boolean>(false)
@@ -30,6 +33,7 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
             name: name,
             description: desc,
             toppingIds: toppings.map((topping) => topping.id),
+            isChef: isChef,
           },
         },
       })

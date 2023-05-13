@@ -39,6 +39,7 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
             description: desc,
             // toppingIds: toppings.filter(topping => !recipe.toppings.includes(topping)).map(topping => topping.id),
             toppingIds: toppings.map((topping) => topping.id),
+            isChef: isChef,
           },
         },
       })
@@ -82,6 +83,7 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
         variables: {
           input: {
             id: recipe.id,
+            isChef: isChef,
           },
         },
       })

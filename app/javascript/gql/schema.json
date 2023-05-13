@@ -94,6 +94,22 @@
               "defaultValue": null,
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "isChef",
+              "description": "Is user a chef?",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "enumValues": null
@@ -123,7 +139,7 @@
             },
             {
               "name": "recipe",
-              "description": "Created recipe",
+              "description": "Newly create recipe",
               "type": {
                 "kind": "OBJECT",
                 "name": "Recipe",
@@ -219,7 +235,7 @@
             },
             {
               "name": "topping",
-              "description": null,
+              "description": "Newly created topping",
               "type": {
                 "kind": "OBJECT",
                 "name": "Topping",
@@ -264,6 +280,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isChef",
+              "description": "Is user a chef?",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
                   "ofType": null
                 }
               },
@@ -729,6 +761,24 @@
               ]
             },
             {
+              "name": "isChef",
+              "description": "Is user a chef?",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "args": [
+
+              ]
+            },
+            {
               "name": "name",
               "description": null,
               "type": {
@@ -944,6 +994,22 @@
               "defaultValue": null,
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "isChef",
+              "description": "Is user a chef?",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "enumValues": null
@@ -973,7 +1039,7 @@
             },
             {
               "name": "recipe",
-              "description": null,
+              "description": "Updated recipe object",
               "type": {
                 "kind": "OBJECT",
                 "name": "Recipe",
@@ -1011,7 +1077,7 @@
             },
             {
               "name": "id",
-              "description": null,
+              "description": "Updated topping id",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1027,7 +1093,7 @@
             },
             {
               "name": "name",
-              "description": null,
+              "description": "Updated topping name",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1043,7 +1109,7 @@
             },
             {
               "name": "description",
-              "description": null,
+              "description": "Updated topping description",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1085,7 +1151,7 @@
             },
             {
               "name": "topping",
-              "description": null,
+              "description": "Updated topping object",
               "type": {
                 "kind": "OBJECT",
                 "name": "Topping",

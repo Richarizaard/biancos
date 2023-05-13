@@ -5,8 +5,12 @@ module Mutations
       argument :name, String, description: 'Name of the created recipe'
       argument :description, String, description: 'Description of the created recipe'
       argument :topping_ids, [ID], description: 'IDs of the recipes ingredients'
+      argument :is_chef, Boolean, required: true, description: 'Is user a chef?'
 
-      def resolve(name:, description:, topping_ids:)
+      def resolve(name:, description:, topping_ids:, is_chef:)
+        raise GraphQL::ExecutionError.new("You are not a chef! You can't touch recipes!",
+          extensions: { code: 'NO_PERMISSIONS'}) unless is_chef
+
         # Check and see if recipe with name already exists
         recipe_found = Recipe.where(name: name).count
   

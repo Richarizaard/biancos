@@ -33,6 +33,7 @@
     "prettier": "prettier --write --no-semi --single-quote 'app/javascript/**/*.{ts,tsx,js,jsx}'",
     "gql-codegen": "graphql-codegen --config codegen.yml",
     "gql-schema": "rake graphql:schema:dump",
-    "gql": "yarn gql-schema && yarn gql-codegen"
+    "gql": "yarn gql-schema && yarn gql-codegen",
+    "rspec-all": "bin/bundle exec rake spec"
   }
 }
