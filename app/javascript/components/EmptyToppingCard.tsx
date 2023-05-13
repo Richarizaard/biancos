@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ToppingsDocument, useCreateToppingMutation } from 'gql'
+import { SliderContext } from 'components/SliderContext'
 
 interface EmptyToppingCardProps {
   notify: (msg: string) => void
@@ -8,6 +9,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
   // Will be empty by default
   const [name, setName] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
+  const { isChef } = useContext(SliderContext)
 
   // State to control whether or not a new topping is being created
   const [isCreating, setIsCreating] = useState<boolean>(false)
@@ -28,6 +30,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
           input: {
             name: name,
             description: desc,
+            isChef: isChef
           },
         },
       })

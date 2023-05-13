@@ -32,6 +32,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
             id: topping.id,
             name: name,
             description: desc,
+            isChef: isChef
           },
         },
       })
@@ -73,6 +74,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
         variables: {
           input: {
             id: topping.id,
+            isChef: isChef
           },
         },
       })

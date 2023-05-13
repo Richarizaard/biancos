@@ -58,6 +58,11 @@ input CreateToppingInput {
   description: String!
 
   """
+  Is user a chef?
+  """
+  isChef: Boolean!
+
+  """
   Name of deleted topping
   """
   name: String!
@@ -126,6 +131,11 @@ input DeleteToppingInput {
   ID of deleted topping
   """
   id: ID!
+
+  """
+  Is user a chef?
+  """
+  isChef: Boolean!
 }
 
 """
@@ -237,6 +247,11 @@ type Recipe {
 type Topping {
   description: String!
   id: ID!
+
+  """
+  Is user a chef?
+  """
+  isChef: Boolean!
   name: String!
 }
 
@@ -304,6 +319,11 @@ input UpdateToppingInput {
   Updated topping id
   """
   id: ID!
+
+  """
+  Is user a chef?
+  """
+  isChef: Boolean!
 
   """
   Updated topping name
