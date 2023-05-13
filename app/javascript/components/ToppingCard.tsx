@@ -4,11 +4,13 @@ import {
   useDeleteToppingMutation,
   useUpdateToppingMutation,
 } from 'gql'
+import { ToastContainer, toast } from 'react-toastify'
 
 interface ToppingCardProps {
   topping: Topping
+  notify: (msg: string) => void
 }
-const ToppingCard = ({ topping }: ToppingCardProps) => {
+const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
   const [name, setName] = useState<string>(topping.name)
   const [desc, setDesc] = useState<string>(topping.description)
   const [editState, setEditState] = useState<boolean>(false)
@@ -19,7 +21,7 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
   const handleUpdate = async () => {
     // Update topping's name/desc
     try {
-      const { errors } = await updateTopping({
+      await updateTopping({
         variables: {
           input: {
             id: topping.id,
@@ -32,8 +34,11 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
       // Exit edit state if no exceptions are caught
       setEditState(false)
 
+      // Success toast
+      notify('Successfully updated topping!')
     } catch (error: any) {
-      console.log(error.message) // toast to notify entry exists
+      // error toast
+      notify(error.message)
     }
   }
 
@@ -55,18 +60,26 @@ const ToppingCard = ({ topping }: ToppingCardProps) => {
       }
     },
   })
-  const handleDelete = async () => {
-    // Exit edit state
-    setEditState(false)
 
-    // Delete topping
-    await deleteTopping({
-      variables: {
-        input: {
-          id: topping.id,
+  const handleDelete = async () => {
+    try {
+      // Delete topping
+      await deleteTopping({
+        variables: {
+          input: {
+            id: topping.id,
+          },
         },
-      },
-    })
+      })
+      // Exit edit state if no exceptions are caught
+      setEditState(false)
+
+      // Success toast
+      notify('Successfully deleted topping!')
+    } catch (error: any) {
+      // error toast
+      notify(error.message)
+    }
   }
 
   const resetStates = () => {

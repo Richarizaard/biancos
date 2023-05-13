@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { RecipesDocument, Topping, useCreateRecipeMutation } from 'gql'
 import ToppingsTag from 'components/ToppingsTag'
 
-const EmptyRecipeCard = () => {
+interface EmptyRecipeCardProps {
+  notify: (msg: string) => void
+}
+const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
   // Will be empty by default
   const [name, setName] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
@@ -20,23 +23,24 @@ const EmptyRecipeCard = () => {
     // Front end validation to disallow creation of recipe when fields aren't filled out
     if (!name || !desc) return
 
-    const { errors } = await createRecipe({
-      variables: {
-        input: {
-          name: name,
-          description: desc,
-          toppingIds: toppings.map((topping) => topping.id),
+    try {
+      await createRecipe({
+        variables: {
+          input: {
+            name: name,
+            description: desc,
+            toppingIds: toppings.map((topping) => topping.id),
+          },
         },
-      },
-    })
-
-    if (errors) {
-      // Toast if recipe exists
-      return <>{errors[0].message}</>
-    } else {
-      // Reset state so chef can create another new recipe
+      })
+      // Exit edit state if no exceptions are caught
       resetStates()
-      // Topping created toast
+
+      // Success toast
+      notify('Successfully created recipe!')
+    } catch (error: any) {
+      // error toast
+      notify(error.message)
     }
   }
 

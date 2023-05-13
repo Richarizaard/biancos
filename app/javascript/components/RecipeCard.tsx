@@ -6,18 +6,23 @@ import {
   useUpdateRecipeMutation,
 } from 'gql'
 import ToppingsTag from 'components/ToppingsTag'
+import { ToastContainer, toast } from 'react-toastify'
 
 interface RecipeCardProps {
   recipe: Recipe
+  notify: (msg: string) => void
 }
-const RecipeCard = ({ recipe }: RecipeCardProps) => {
+const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
   const [name, setName] = useState<string>(recipe.name)
   const [desc, setDesc] = useState<string>(recipe.description)
   const [toppings, setToppings] = useState<Topping[]>(recipe.toppings)
 
   const [editState, setEditState] = useState<boolean>(false)
   const disableUpdate =
-    editState && name === recipe.name && desc === recipe.description && toppings === recipe.toppings
+    editState &&
+    name === recipe.name &&
+    desc === recipe.description &&
+    toppings === recipe.toppings
 
   const [updateRecipe] = useUpdateRecipeMutation()
   const handleUpdate = async () => {
@@ -30,15 +35,18 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             name: name,
             description: desc,
             // toppingIds: toppings.filter(topping => !recipe.toppings.includes(topping)).map(topping => topping.id),
-            toppingIds: toppings.map(topping => topping.id),
+            toppingIds: toppings.map((topping) => topping.id),
           },
         },
       })
 
       // Exit edit state if no exceptions are caught
       setEditState(false)
-    } catch (error: unknown) {
-      // Toast
+
+      // Success toast
+      notify('Successfully updated recipe!')
+    } catch (error: any) {
+      notify(error.message)
     }
   }
 
@@ -65,14 +73,24 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
     // Exit edit state
     setEditState(false)
 
-    // Delete topping
-    await deleteRecipe({
-      variables: {
-        input: {
-          id: recipe.id,
+    try {
+      // Delete topping
+      await deleteRecipe({
+        variables: {
+          input: {
+            id: recipe.id,
+          },
         },
-      },
-    })
+      })
+      // Exit edit state if no exceptions are caught
+      setEditState(false)
+
+      // Success toast
+      notify('Successfully deleted recipe!')
+    } catch (error: any) {
+      // error toast
+      notify(error.message)
+    }
   }
 
   const handleCancel = () => {

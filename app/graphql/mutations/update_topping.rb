@@ -13,7 +13,7 @@ module Mutations
 
       # Raise graphql error if topping already exists
       raise GraphQL::ExecutionError.new("Topping: #{name} already exists",
-      extensions: { code: 'TOPPING_EXISTS'}) if dup_topping.id != id.to_i
+      extensions: { code: 'TOPPING_EXISTS'}) if dup_topping.present? && dup_topping&.id != id.to_i
 
       topping.update(name: name, description: description)
 

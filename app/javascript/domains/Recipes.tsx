@@ -5,10 +5,24 @@ import { SliderContext } from 'components/SliderContext'
 import { useRecipesQuery } from 'gql'
 import React, { useContext } from 'react'
 import BiancoHeader1 from 'utils/typography/BiancoHeader1'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Recipes = () => {
   const { data } = useRecipesQuery()
   const { isChef } = useContext(SliderContext)
+  const notify = (msg: string) => {
+    toast.error(msg, {
+      position: 'bottom-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+      theme: 'dark',
+    })
+  }
 
   return (
     <div className="container mx-auto px-6 sm:px-24 ">
@@ -18,20 +32,22 @@ const Recipes = () => {
           Recipes
         </BiancoHeader1>
         <div>
-        The world revolves around pizza. But you can't have pizza without recipes! View, update, create, and delete
-          pizza recipes here! 🍕 (Sorry, chefs only)
+          The world revolves around pizza. But you can't have pizza without
+          recipes! View, update, create, and delete pizza recipes here! 🍕
+          (Sorry, chefs only)
         </div>
         <span className="font-medium text-end">
           {data?.recipes?.length || 0} recipes
         </span>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))]">
-        {isChef && <EmptyRecipeCard />}
+        {isChef && <EmptyRecipeCard notify={notify} />}
         {data &&
           data.recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard key={recipe.id} recipe={recipe} notify={notify} />
           ))}
       </div>
+      <ToastContainer />
     </div>
   )
 }

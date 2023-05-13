@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { ToppingsDocument, useCreateToppingMutation } from 'gql'
 
-const EmptyToppingCard = () => {
+interface EmptyToppingCardProps {
+  notify: (msg: string) => void
+}
+const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
   // Will be empty by default
   const [name, setName] = useState<string>('')
   const [desc, setDesc] = useState<string>('')
@@ -19,22 +22,24 @@ const EmptyToppingCard = () => {
     // Front end validation to disallow creation of topping when fields aren't filled out
     if (!name || !desc) return
 
-    const { errors } = await createTopping({
-      variables: {
-        input: {
-          name: name,
-          description: desc,
+    try {
+      await createTopping({
+        variables: {
+          input: {
+            name: name,
+            description: desc,
+          },
         },
-      },
-    })
+      })
 
-    if (errors) {
-        // Toast if topping exists
-      return <>{errors[0].message}</>
-    } else {
-      // Reset state so owner can create another new topping
+      // Exit edit state if no exceptions are caught
       resetStates()
-      // Topping created toast
+
+      // Success toast
+      notify('Successfully created topping!')
+    } catch (error: any) {
+      // error toast
+      notify(error.message)
     }
   }
 
