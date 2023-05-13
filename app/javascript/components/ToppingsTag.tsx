@@ -1,4 +1,4 @@
-import { Recipe, Topping, useToppingsQuery, useUpdateRecipeMutation } from 'gql'
+import { Topping, useToppingsQuery } from 'gql'
 import React, { useEffect, useState } from 'react'
 
 interface ToppingsTagProps {
@@ -47,7 +47,10 @@ const ToppingsTag = ({
     <div className="w-full flex flex-wrap justify-start py-2">
       {toppings.map((topping) => {
         return (
-          <div className="border-2 px-1 m-1 border-bianco-salmon text-white bg-bianco-pink rounded-lg flex gap-1">
+          <div
+            key={topping.id}
+            className="border-2 px-1 m-1 border-bianco-salmon text-white bg-bianco-pink rounded-lg flex gap-1"
+          >
             <div className="" key={topping.id}>
               {topping.name}
             </div>
@@ -78,6 +81,7 @@ const ToppingsTag = ({
             {filteredToppings?.map((topping) => {
               return (
                 <div
+                  key={topping.id}
                   className="hover:bg-gray-200 rounded-lg cursor-pointer px-1"
                   onClick={() => handleAddTag(topping)}
                 >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Recipe,
   Topping,
@@ -6,6 +6,7 @@ import {
   useUpdateRecipeMutation,
 } from 'gql'
 import ToppingsTag from 'components/ToppingsTag'
+import { SliderContext } from 'components/SliderContext'
 
 interface RecipeCardProps {
   recipe: Recipe
@@ -15,8 +16,11 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
   const [name, setName] = useState<string>(recipe.name)
   const [desc, setDesc] = useState<string>(recipe.description)
   const [toppings, setToppings] = useState<Topping[]>(recipe.toppings)
-
   const [editState, setEditState] = useState<boolean>(false)
+
+  const { isChef } = useContext(SliderContext)
+
+  // Flag to allow enabled update button
   const disableUpdate =
     editState &&
     name === recipe.name &&
@@ -130,24 +134,25 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
         setToppings={setToppings}
         isEditOrCreate={editState}
       />
-
-      <div className="flex gap-4 pt-4">
-        <button
-          className={`rounded-lg p-2 px-4 ${
-            disableUpdate ? 'text-gray-200' : ''
-          }`}
-          onClick={() => (editState ? handleUpdate() : setEditState(true))}
-          disabled={disableUpdate}
-        >
-          {editState ? 'Update' : 'Edit'}
-        </button>
-        <button
-          className="rounded-lg bg-bianco-pink text-white p-2 px-4"
-          onClick={() => (editState ? handleCancel() : handleDelete())}
-        >
-          {editState ? 'Cancel' : 'Delete'}
-        </button>
-      </div>
+      {isChef && (
+        <div className="flex gap-4 pt-4">
+          <button
+            className={`rounded-lg p-2 px-4 ${
+              disableUpdate ? 'text-gray-200' : ''
+            }`}
+            onClick={() => (editState ? handleUpdate() : setEditState(true))}
+            disabled={disableUpdate}
+          >
+            {editState ? 'Update' : 'Edit'}
+          </button>
+          <button
+            className="rounded-lg bg-bianco-pink text-white p-2 px-4"
+            onClick={() => (editState ? handleCancel() : handleDelete())}
+          >
+            {editState ? 'Cancel' : 'Delete'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

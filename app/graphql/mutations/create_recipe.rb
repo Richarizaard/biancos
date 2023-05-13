@@ -7,6 +7,13 @@ module Mutations
       argument :topping_ids, [ID], description: 'IDs of the recipes ingredients'
 
       def resolve(name:, description:, topping_ids:)
+        # Check and see if recipe with name already exists
+        recipe_found = Recipe.where(name: name).count
+  
+        # Raise graphql error if topping already exists
+        raise GraphQL::ExecutionError.new("Recipe: #{name} already exists",
+            extensions: { code: 'RECIPE_EXISTS'}) if recipe_found > 0
+
         # Create a new recipe
         recipe = Recipe.new(name: name, description: description)
 

@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Topping,
   useDeleteToppingMutation,
   useUpdateToppingMutation,
 } from 'gql'
+import { SliderContext } from 'components/SliderContext'
 
 interface ToppingCardProps {
   topping: Topping
@@ -14,6 +15,8 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
   const [name, setName] = useState<string>(topping.name)
   const [desc, setDesc] = useState<string>(topping.description)
   const [editState, setEditState] = useState<boolean>(false)
+
+  const { isChef } = useContext(SliderContext)
 
   // Flag to allow enabled update button
   const disableUpdate =
@@ -116,24 +119,25 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
         value={desc}
         onChange={(e: any) => setDesc(e.target.value)}
       />
-
-      <div className="flex gap-4 pt-4">
-        <button
-          className={`rounded-lg p-2 px-4 ${
-            disableUpdate ? 'text-gray-200' : ''
-          }`}
-          onClick={() => (editState ? handleUpdate() : setEditState(true))}
-          disabled={disableUpdate}
-        >
-          {editState ? 'Update' : 'Edit'}
-        </button>
-        <button
-          className="rounded-lg bg-bianco-pink text-white p-2 px-4"
-          onClick={() => (editState ? resetStates() : handleDelete())}
-        >
-          {editState ? 'Cancel' : 'Delete'}
-        </button>
-      </div>
+      {!isChef && (
+        <div className="flex gap-4 pt-4">
+          <button
+            className={`rounded-lg p-2 px-4 ${
+              disableUpdate ? 'text-gray-200' : ''
+            }`}
+            onClick={() => (editState ? handleUpdate() : setEditState(true))}
+            disabled={disableUpdate}
+          >
+            {editState ? 'Update' : 'Edit'}
+          </button>
+          <button
+            className="rounded-lg bg-bianco-pink text-white p-2 px-4"
+            onClick={() => (editState ? resetStates() : handleDelete())}
+          >
+            {editState ? 'Cancel' : 'Delete'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
