@@ -34,7 +34,7 @@ module Mutations
       new_toppings = create_list(:topping, 2)
       new_topping_ids = new_toppings.map(&:id)
 
-      response = @mutation.resolve(id: @recipe.id, name: @name, description: @description, topping_ids: new_topping_ids, is_chef: @chef.role == 'chef')
+      response = @mutation.resolve(id: @recipe.id, name: '', description: '', topping_ids: new_topping_ids, is_chef: @chef.role == 'chef')
 
       # Reload recipe
       response[:recipe].reload

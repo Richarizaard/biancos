@@ -27,14 +27,14 @@ FactoryBot.define do
       name { Faker::Food.dish }
       description { Faker::Food.description }
   
-      factory :recipe_with_toppings do
-        transient do
-          toppings_count { 2 }
-        end
+    #   factory :recipe_with_toppings do
+    #     transient do
+    #       toppings_count { 2 }
+    #     end
   
-        after(:create) do |recipe, evaluator|
-          create_list(:recipe_topping, evaluator.toppings_count, recipe: recipe)
-        end
-      end
+    #     after(:create) do |recipe, evaluator|
+    #       create_list(:recipe_topping, evaluator.toppings_count, recipe: recipe)
+    #     end
+    #   end
     end
   end
