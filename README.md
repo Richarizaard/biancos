@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hi there!
 
-Things you may want to cover:
+This pizza management app was written in Typescript <img src="https://cdn3.emoji.gg/emojis/8584-typescript.png" width="24px" height="24px" alt="TypeScript">, React <img src="https://cdn3.emoji.gg/emojis/3203-reactjs.png" width="24px" height="24px" alt="reactjs">, GraphQL, and Ruby on Rails <img src="https://cdn3.emoji.gg/emojis/5648_ruby_logo.png" width="64px" height="64px" alt="ruby_logo">.
 
-* Ruby version
+Backend testing suite uses RSpec, FactoryBot, and Faker
 
-* System dependencies
 
-* Configuration
 
-* Database creation
+Open up two consoles and run the following two commands - 
+`bin/vite dev` and `rails s`
 
-* Database initialization
+Navigate to `localhost:3000` and play around with the app!
 
-* How to run the test suite
+If you want to run rspec tests that test the rails models and mutations you can -
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  - Run a specific test via `rspec spec/.../*_spec.rb
+  - Run the whole suite of tests via `yarn rspec-all`
