@@ -157,8 +157,6 @@ export type Recipe = {
   __typename: 'Recipe';
   description: Scalars['String'];
   id: Scalars['ID'];
-  /** Is user a chef? */
-  isChef: Scalars['Boolean'];
   name: Scalars['String'];
   toppings: Array<Topping>;
 };
@@ -167,8 +165,6 @@ export type Topping = {
   __typename: 'Topping';
   description: Scalars['String'];
   id: Scalars['ID'];
-  /** Is user a chef? */
-  isChef: Scalars['Boolean'];
   name: Scalars['String'];
 };
 
@@ -273,12 +269,12 @@ export type UpdateToppingMutation = { __typename: 'Mutation', updateTopping?: { 
 export type RecipesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecipesQuery = { __typename: 'Query', recipes: Array<{ __typename: 'Recipe', id: string, name: string, description: string, isChef: boolean, toppings: Array<{ __typename: 'Topping', id: string, name: string, description: string, isChef: boolean }> }> };
+export type RecipesQuery = { __typename: 'Query', recipes: Array<{ __typename: 'Recipe', id: string, name: string, description: string, toppings: Array<{ __typename: 'Topping', id: string, name: string, description: string }> }> };
 
 export type ToppingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ToppingsQuery = { __typename: 'Query', toppings: Array<{ __typename: 'Topping', id: string, name: string, description: string, isChef: boolean }> };
+export type ToppingsQuery = { __typename: 'Query', toppings: Array<{ __typename: 'Topping', id: string, name: string, description: string }> };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -514,12 +510,10 @@ export const RecipesDocument = gql`
     id
     name
     description
-    isChef
     toppings {
       id
       name
       description
-      isChef
     }
   }
 }
@@ -557,7 +551,6 @@ export const ToppingsDocument = gql`
     id
     name
     description
-    isChef
   }
 }
     `;

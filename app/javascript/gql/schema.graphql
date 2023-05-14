@@ -235,11 +235,6 @@ type Query {
 type Recipe {
   description: String!
   id: ID!
-
-  """
-  Is user a chef?
-  """
-  isChef: Boolean!
   name: String!
   toppings: [Topping!]!
 }
@@ -247,11 +242,6 @@ type Recipe {
 type Topping {
   description: String!
   id: ID!
-
-  """
-  Is user a chef?
-  """
-  isChef: Boolean!
   name: String!
 }
 

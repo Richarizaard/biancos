@@ -3,6 +3,5 @@ query toppings {
     id
     name
     description
-    isChef
   }
 }

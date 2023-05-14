@@ -3,12 +3,10 @@ query recipes {
     id
     name
     description
-    isChef
     toppings {
       id
       name
       description
-      isChef
     }
   }
 }
