@@ -1,5 +1,4 @@
 import { SliderProvider } from 'components/SliderContext'
-import React, { useState } from 'react'
 import PublicRoutes from 'routes/PublicRoutes'
 
 export default function App() {

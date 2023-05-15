@@ -7,12 +7,16 @@ ________________________________________________________________________________
 
 Backend testing suite uses RSpec, FactoryBot, and Faker
 
+These tests are located within `spec/**`
+
 If you want to run rspec tests that test the rails models and mutations you can -
 
   - Run a specific test via `rspec spec/.../*_spec.rb` (rspec spec/graphql/mutations/create_recipe_spec.rb)
   - Run the whole suite of tests via `yarn rspec`
 ___________________________________________________________________________________________________________________
-Unit testing suite uses the React testing library and Jest
+Unit testing suite uses the React testing library and Jest. 
+
+These tests are located within `test/javascript/**`
 
 If you want to run jest tests that test the components you can -
 

@@ -3,7 +3,7 @@ import Header from 'components/Header'
 import { SliderContext } from 'components/SliderContext'
 import ToppingCard from 'components/ToppingCard'
 import { useToppingsQuery } from 'gql'
-import React, { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import BiancoHeader1 from 'utils/typography/BiancoHeader1'
 import 'react-toastify/dist/ReactToastify.css'
@@ -37,7 +37,7 @@ const Toppings = () => {
           (Sorry, owners only)
         </span>
         <span className="font-medium text-end">
-          {data?.toppings?.length} toppings
+          {data?.toppings?.length || 0} toppings
         </span>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))]">
