@@ -28,9 +28,11 @@ Run all tests with `yarn test`
 ___________________________________________________________________________________________________________________
 **How to setup env -**
 
-Open up two consoles and run the following two commands - 
+- Clone this repo
+- Run `yarn install` and `bundle install`
+- Open up a console and run `rails db:create` and `rails db:migrate`
+- Open up two consoles and run the following two commands - 
 `bin/vite dev` and `rails s`
-
-Navigate to `localhost:3000` and play around with the app
+- Navigate to `localhost:3000` and play around with the app
 
 Live on - https://biancos.herokuapp.com/
