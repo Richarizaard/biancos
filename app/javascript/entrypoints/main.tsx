@@ -1,12 +1,7 @@
-console.log(
-  'Visit the guide for more information: ',
-  'https://vite-ruby.netlify.app/guide/rails'
-)
-
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import './tailwind.css'
+import fetch from 'cross-fetch'
 
 import {
   ApolloClient,
@@ -18,12 +13,13 @@ import {
 const getCsrfToken = () =>
   document.querySelector('meta[name=csrf-token]')?.getAttribute('content') || ''
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: new HttpLink({
     credentials: 'same-origin',
     headers: {
       'X-CSRF-Token': getCsrfToken(),
     },
+    fetch: fetch,
   }),
   cache: new InMemoryCache(),
 })

@@ -61,11 +61,13 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
   return (
     <div
       id={'crecipe-create'}
+      data-testid="empty-recipe-card"
       className="min-h-[250px] flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
     >
       {isCreating ? (
         <>
           <textarea
+            data-testid="empty-recipe-card-name"
             className={
               'text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none overflow-hidden bg-white border-2 border-bianco-red'
             }
@@ -76,6 +78,7 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
             required
           />
           <textarea
+            data-testid="empty-recipe-card-desc"
             className="text-sm h-full w-full px-2 py-4 resize-none rounded-lg focus:outline-none bg-white
               border-2 border-bianco-red"
             rows={5}
@@ -90,6 +93,7 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
           />
           <div className="flex gap-4 pt-4">
             <button
+              data-testid="empty-recipe-card-create-button"
               className={`rounded-lg p-2 px-4 ${
                 !name || !desc ? 'text-gray-200' : ''
               }`}
@@ -99,6 +103,7 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
               Create
             </button>
             <button
+              data-testid="empty-recipe-card-cancel-button"
               className="rounded-lg bg-bianco-pink text-white p-2 px-4"
               onClick={() => resetStates()}
             >
@@ -108,6 +113,7 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
         </>
       ) : (
         <div
+          data-testid="add-recipe"
           className="flex cursor-pointer justify-center items-center h-full text-4xl"
           onClick={() => setIsCreating(true)}
         >

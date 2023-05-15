@@ -26,7 +26,10 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex w-full justify-between items-center text-lg font-medium">
+      <div
+        className="flex w-full justify-between items-center text-lg font-medium"
+        data-testid="biancos-header"
+      >
         <div>
           <Link to={'/'} className="text-bianco-red text-4xl font-bold">
             Biancos

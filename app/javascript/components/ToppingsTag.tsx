@@ -1,3 +1,4 @@
+import { log } from 'console'
 import { Topping, useToppingsQuery } from 'gql'
 import React, { useEffect, useState } from 'react'
 
@@ -8,7 +9,7 @@ interface ToppingsTagProps {
 }
 
 // This component handles the updating of state vars for toppings
-// This does NOT call any queries. Queries are handled in the parent component
+// This does NOT call any mutations. Mutations are handled in the parent component
 const ToppingsTag = ({
   toppings,
   setToppings,
@@ -43,6 +44,7 @@ const ToppingsTag = ({
     (topping) => !toppings.some((existing) => existing.id === topping.id)
   )
 
+  const netToppings = filteredToppings?.length || 0
   return (
     <div className="w-full flex flex-wrap justify-start py-2">
       {toppings.map((topping) => {
@@ -56,6 +58,7 @@ const ToppingsTag = ({
             </div>
             {isEditOrCreate && (
               <div
+                data-testid="delete-topping-tag"
                 className="cursor-pointer text-sm"
                 onClick={() => handleRemoveTag(topping)}
               >
@@ -65,19 +68,20 @@ const ToppingsTag = ({
           </div>
         )
       })}
-      {isEditOrCreate && !openDropdown && (
+      {isEditOrCreate && filteredToppings && filteredToppings.length > 0 && (
         <div className="relative flex items-center">
           <div
+            data-testid="add-topping-tag"
             className="px-2 cursor-pointer flex items-center"
-            onClick={() => setOpenDropdown(true)}
+            onClick={() => setOpenDropdown(!openDropdown)}
           >
             +
           </div>
         </div>
       )}
       {openDropdown && (
-        <div className="relative py-1 px-2">
-          <div className="h-[250px] overflow-scroll border-2 p-2 border-bianco-salmon text-bianco-red rounded-lg bg-white flex flex-col fixed">
+        <div data-testid="topping-dropdown" className="relative py-1 px-2">
+          <div className="max-h-[250px] overflow-scroll border-2 p-2 border-bianco-salmon text-bianco-red rounded-lg bg-white flex flex-col fixed">
             {filteredToppings?.map((topping) => {
               return (
                 <div

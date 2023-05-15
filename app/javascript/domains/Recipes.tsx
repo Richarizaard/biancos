@@ -11,8 +11,9 @@ import 'react-toastify/dist/ReactToastify.css'
 const Recipes = () => {
   const { data } = useRecipesQuery()
   const { isChef } = useContext(SliderContext)
+
   const notify = (msg: string) => {
-    toast.error(msg, {
+    return toast.error(msg, {
       position: 'bottom-center',
       autoClose: 5000,
       hideProgressBar: true,
@@ -31,7 +32,7 @@ const Recipes = () => {
         <BiancoHeader1 className="text-bianco-red sm:text-4xl">
           Recipes
         </BiancoHeader1>
-        <div>
+        <div data-testid="recipe-info">
           The world revolves around pizza. But you can't have pizza without
           recipes! View, update, create, and delete pizza recipes here! 🍕
           (Sorry, chefs only)

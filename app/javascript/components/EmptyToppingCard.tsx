@@ -30,7 +30,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
           input: {
             name: name,
             description: desc,
-            isChef: isChef
+            isChef: isChef,
           },
         },
       })
@@ -58,11 +58,13 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
   return (
     <div
       id={'topping-create'}
+      data-testid="empty-topping-card"
       className="min-h-[250px] flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
     >
       {isCreating ? (
         <>
           <textarea
+            data-testid="empty-topping-card-name"
             className={
               'text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none overflow-hidden bg-white border-2 border-bianco-red'
             }
@@ -73,6 +75,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
             required
           />
           <textarea
+            data-testid="empty-topping-card-desc"
             className="text-sm h-full w-full px-2 py-4 resize-none rounded-lg focus:outline-none bg-white
               border-2 border-bianco-red"
             rows={5}
@@ -83,6 +86,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
 
           <div className="flex gap-4 pt-4">
             <button
+              data-testid="empty-topping-card-create-button"
               className={`rounded-lg p-2 px-4 ${
                 !name || !desc ? 'text-gray-200' : ''
               }`}
@@ -92,6 +96,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
               Create
             </button>
             <button
+              data-testid="empty-topping-card-cancel-button"
               className="rounded-lg bg-bianco-pink text-white p-2 px-4"
               onClick={() => resetStates()}
             >
@@ -101,6 +106,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
         </>
       ) : (
         <div
+          data-testid="add-topping"
           className="flex cursor-pointer justify-center items-center h-full text-4xl"
           onClick={() => setIsCreating(true)}
         >

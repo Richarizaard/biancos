@@ -12,6 +12,7 @@ const SliderButton = () => {
     <label className="relative flex justify-between items-center p-2 text-xl">
       <input
         type="checkbox"
+        data-testid="role-button"
         className="absolute cursor-pointer left-1/2 -translate-x-1/2 w-full h-full peer appearance-none rounded-md"
         checked={isChef}
         onChange={handleSliderChange}

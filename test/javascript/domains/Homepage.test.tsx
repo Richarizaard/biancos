@@ -1,8 +1,7 @@
-import Header from 'components/Header'
-import { SliderContext } from 'components/SliderContext'
-import { useContext } from 'react'
-import BiancoHeader1 from 'utils/typography/BiancoHeader1'
-import BiancoHeader2 from 'utils/typography/BiancoHeader2'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import Homepage from 'domains/Homepage'
+import { MemoryRouter } from 'react-router'
 
 const OUR_RESTAURANTS = [
   {
@@ -48,39 +47,53 @@ const OUR_RESTAURANTS = [
     img: 'https://images.squarespace-cdn.com/content/v1/6099bdee28fc4e72bd84675b/1620753700478-8JDA4MWZG0ESCRU3RM7R/tratto-phoenix.jpg',
   },
 ]
-const Homepage = () => {
-  const { isChef } = useContext(SliderContext)
-  return (
-    <div className="container mx-auto px-6 sm:px-24">
-      <Header />
-      <img src="https://images.squarespace-cdn.com/content/v1/6099bdee28fc4e72bd84675b/1620696079215-3MMBPC9C1PNRFPXNDH0A/pizzeria-bianco.jpg" />
-      <div className="my-2 py-4 text-5xl font-bold flex justify-center">
-        OUR RESTAURANTS
-      </div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,auto))]">
-        {OUR_RESTAURANTS.map((restaurant, idx) => {
-          return (
-            <div
-              data-testid="restaurant-card"
-              key={idx}
-              className="w-full p-4 m-4 flex justify-center items-center flex-col"
-            >
-              <img src={restaurant.img} />
-              <BiancoHeader1>{restaurant.name}</BiancoHeader1>
-              <BiancoHeader2>{restaurant.location}</BiancoHeader2>
-              <div>{restaurant.address}</div>
-              <button
-                className="m-2 p-2 border-2 bg-bianco-pink rounded-lg hover:shadow-lg"
-                onClick={() => window.open(restaurant.link, '_blank')}
-              >
-                Hours & Menu
-              </button>
-            </div>
-          )
-        })}
-      </div>
-    </div>
+
+// Mock window.open
+global.open = jest.fn();
+
+const renderHandler = () => {
+  return render(
+    <MemoryRouter>
+      <Homepage />
+    </MemoryRouter>
   )
 }
 
-export default Homepage
+describe('Homepage', () => {
+  it('renders the header', () => {
+    // Render component
+    renderHandler()
+
+    // Look for header
+    expect(screen.getByTestId('biancos-header')).toBeInTheDocument()
+  })
+
+  it('renders the restaurant cards', () => {
+    // Render component
+    renderHandler()
+
+    // Look for all 6 restaurants
+    const restaurantCards = screen.getAllByTestId('restaurant-card')
+    expect(restaurantCards).toHaveLength(6)
+
+    // Verify names
+    const restaurantNames = OUR_RESTAURANTS.map((restaurant) => restaurant.name)
+    restaurantNames.forEach((name) => {
+      expect(screen.getByText(name)).toBeInTheDocument()
+    })
+  })
+
+  it('opens the restaurant link in a new tab when "Hours & Menu" button is clicked', () => {
+    // Render component
+    renderHandler()
+
+    // Look for buttons
+    const buttons = screen.getAllByText('Hours & Menu')
+
+    // Go through each button and click them
+    buttons.forEach((button, index) => {
+      button.click()
+      expect(global.open).toHaveBeenCalledWith(OUR_RESTAURANTS[index].link, '_blank');
+    })
+  })
+})

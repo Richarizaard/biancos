@@ -37,7 +37,6 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
             id: recipe.id,
             name: name,
             description: desc,
-            // toppingIds: toppings.filter(topping => !recipe.toppings.includes(topping)).map(topping => topping.id),
             toppingIds: toppings.map((topping) => topping.id),
             isChef: isChef,
           },
@@ -74,9 +73,6 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
   })
 
   const handleDelete = async () => {
-    // Exit edit state
-    setEditState(false)
-
     try {
       // Delete topping
       await deleteRecipe({
@@ -115,6 +111,7 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
     >
       <textarea
         disabled={!editState}
+        data-testid={'recipe-name'}
         className={`text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none overflow-hidden bg-white ${
           editState ? 'border-2 border-bianco-red' : ''
         }`}
@@ -124,6 +121,7 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
       />
       <textarea
         disabled={!editState}
+        data-testid={'recipe-desc'}
         className={`text-sm h-full w-full px-2 py-4 resize-none rounded-lg focus:outline-none bg-white ${
           editState ? 'border-2 border-bianco-red' : ''
         }`}
@@ -139,6 +137,7 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
       {isChef && (
         <div className="flex gap-4 pt-4">
           <button
+            data-testid={`${editState ? 'recipe-update' : 'recipe-edit'}`}
             className={`rounded-lg p-2 px-4 ${
               disableUpdate ? 'text-gray-200' : ''
             }`}
@@ -148,6 +147,7 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
             {editState ? 'Update' : 'Edit'}
           </button>
           <button
+            data-testid={`${editState ? 'recipe-cancel' : 'recipe-delete'}`}
             className="rounded-lg bg-bianco-pink text-white p-2 px-4"
             onClick={() => (editState ? handleCancel() : handleDelete())}
           >

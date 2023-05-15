@@ -12,7 +12,7 @@ const Toppings = () => {
   const { data } = useToppingsQuery()
   const { isChef } = useContext(SliderContext)
   const notify = (msg: string) => {
-    toast.error(msg, {
+    return toast.error(msg, {
       position: 'bottom-center',
       autoClose: 5000,
       hideProgressBar: true,
@@ -31,7 +31,7 @@ const Toppings = () => {
         <BiancoHeader1 className="text-bianco-red sm:text-4xl">
           Toppings
         </BiancoHeader1>
-        <span>
+        <span data-testid="topping-info">
           The world revolves around pizza. But you can't have pizza without
           toppings! View, update, create, and delete pizza toppings here! 🍕
           (Sorry, owners only)

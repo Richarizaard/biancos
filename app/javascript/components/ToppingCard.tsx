@@ -32,7 +32,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
             id: topping.id,
             name: name,
             description: desc,
-            isChef: isChef
+            isChef: isChef,
           },
         },
       })
@@ -74,7 +74,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
         variables: {
           input: {
             id: topping.id,
-            isChef: isChef
+            isChef: isChef,
           },
         },
       })
@@ -105,6 +105,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
     >
       <textarea
         disabled={!editState}
+        data-testid={'topping-name'}
         className={`text-center text-sm px-2 py-4 resize-none rounded-lg focus:outline-none overflow-hidden bg-white ${
           editState ? 'border-2 border-bianco-red' : ''
         }`}
@@ -114,6 +115,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
       />
       <textarea
         disabled={!editState}
+        data-testid={'topping-desc'}
         className={`text-sm h-full w-full px-2 py-4 resize-none rounded-lg focus:outline-none bg-white ${
           editState ? 'border-2 border-bianco-red' : ''
         }`}
@@ -124,6 +126,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
       {!isChef && (
         <div className="flex gap-4 pt-4">
           <button
+            data-testid={`${editState ? 'topping-update' : 'topping-edit'}`}
             className={`rounded-lg p-2 px-4 ${
               disableUpdate ? 'text-gray-200' : ''
             }`}
@@ -133,6 +136,7 @@ const ToppingCard = ({ topping, notify }: ToppingCardProps) => {
             {editState ? 'Update' : 'Edit'}
           </button>
           <button
+            data-testid={`${editState ? 'topping-cancel' : 'topping-delete'}`}
             className="rounded-lg bg-bianco-pink text-white p-2 px-4"
             onClick={() => (editState ? resetStates() : handleDelete())}
           >
