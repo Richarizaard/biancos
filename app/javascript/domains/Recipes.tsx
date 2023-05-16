@@ -26,7 +26,7 @@ const Recipes = () => {
   }
 
   return (
-    <div className="container mx-auto px-6 sm:px-24 ">
+    <div className="container mx-auto px-6 md:px-24 ">
       <Header />
       <div className="flex flex-col justify-center py-6 lg:py-12">
         <BiancoHeader1 className="text-bianco-red sm:text-4xl">
@@ -41,13 +41,13 @@ const Recipes = () => {
           {data?.recipes?.length || 0} recipes
         </span>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))]">
-        {isChef && <EmptyRecipeCard notify={notify} />}
-        {data &&
-          data.recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} notify={notify} />
-          ))}
-      </div>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))] justify-items-center">
+          {isChef && <EmptyRecipeCard notify={notify} />}
+          {data &&
+            data.recipes.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} notify={notify} />
+            ))}
+        </div>
       <ToastContainer />
     </div>
   )

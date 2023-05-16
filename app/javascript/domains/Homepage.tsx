@@ -1,6 +1,4 @@
 import Header from 'components/Header'
-import { SliderContext } from 'components/SliderContext'
-import { useContext } from 'react'
 import BiancoHeader1 from 'utils/typography/BiancoHeader1'
 import BiancoHeader2 from 'utils/typography/BiancoHeader2'
 
@@ -28,42 +26,41 @@ const OUR_RESTAURANTS = [
   },
   {
     name: 'Pane Bianco',
-    location: '',
+    location: 'Phoenix',
     address: '4404 N Central Ave., Phoenix // (602) 234-2100',
     link: 'https://www.pizzeriabianco.com/pane-bianco',
     img: 'https://images.squarespace-cdn.com/content/v1/6099bdee28fc4e72bd84675b/1620752621903-HGEHPLKSR9JOUE95HWXS/pane-bianco.jpg',
   },
   {
     name: 'Bar Bianco',
-    location: '',
+    location: 'Phoenix',
     address: '623 E. Adams St., Phoenix // (602 258-8300)',
     link: 'https://www.pizzeriabianco.com/bar-bianco',
     img: 'https://images.squarespace-cdn.com/content/v1/6099bdee28fc4e72bd84675b/1620753441639-GW14SNWHTXER8FOOLEBM/bar-bianco-phoenix.jpg',
   },
   {
     name: 'Tratto',
-    location: '',
+    location: 'Phoeniix',
     address: '1505 E Van Buren, Phoenix // (602) 296-7761',
     link: 'http://www.trattophx.com/',
     img: 'https://images.squarespace-cdn.com/content/v1/6099bdee28fc4e72bd84675b/1620753700478-8JDA4MWZG0ESCRU3RM7R/tratto-phoenix.jpg',
   },
 ]
 const Homepage = () => {
-  const { isChef } = useContext(SliderContext)
   return (
-    <div className="container mx-auto px-6 sm:px-24">
+    <div className="container mx-auto px-6 md:px-24">
       <Header />
       <img src="https://images.squarespace-cdn.com/content/v1/6099bdee28fc4e72bd84675b/1620696079215-3MMBPC9C1PNRFPXNDH0A/pizzeria-bianco.jpg" />
       <div className="my-2 py-4 text-5xl font-bold flex justify-center">
         OUR RESTAURANTS
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,auto))]">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,auto))] justify-items-center">
         {OUR_RESTAURANTS.map((restaurant, idx) => {
           return (
             <div
               data-testid="restaurant-card"
               key={idx}
-              className="w-full p-4 m-4 flex justify-center items-center flex-col"
+              className="w-auto p-4 m-4 flex justify-center items-center flex-col"
             >
               <img src={restaurant.img} />
               <BiancoHeader1>{restaurant.name}</BiancoHeader1>

@@ -59,7 +59,7 @@ const EmptyToppingCard = ({ notify }: EmptyToppingCardProps) => {
     <div
       id={'topping-create'}
       data-testid="empty-topping-card"
-      className="min-h-[250px] flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
+      className="min-h-[250px] w-[250px] text-black flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
     >
       {isCreating ? (
         <>
