@@ -44,7 +44,6 @@ const ToppingsTag = ({
     (topping) => !toppings.some((existing) => existing.id === topping.id)
   )
 
-  const netToppings = filteredToppings?.length || 0
   return (
     <div className="w-full flex flex-wrap justify-start py-2">
       {toppings.map((topping) => {
@@ -80,8 +79,8 @@ const ToppingsTag = ({
         </div>
       )}
       {openDropdown && (
-        <div data-testid="topping-dropdown" className="relative py-1 px-2">
-          <div className="max-h-[250px] overflow-scroll border-2 p-2 border-bianco-salmon text-bianco-red rounded-lg bg-white flex flex-col fixed">
+        <div data-testid="topping-dropdown" className="relative py-1 px-2 w-6/12">
+          <div className="max-h-[150px] sm:max-h-[250px] overflow-scroll border-2 p-2 border-bianco-salmon text-bianco-red rounded-lg bg-white flex flex-col absolute">
             {filteredToppings?.map((topping) => {
               return (
                 <div
