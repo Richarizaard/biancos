@@ -100,7 +100,7 @@ describe('ToppingsTag component', () => {
 
   it('opens and closes the topping dropdown', async () => {
     // Render component
-    renderHandler(mockToppings, [], true)
+    renderHandler(mockToppings, toppings, true)
 
     // Wait for queries
     await waitFor(() => new Promise((resolve) => setTimeout(resolve, 100)))
@@ -110,7 +110,7 @@ describe('ToppingsTag component', () => {
     expect(screen.getByTestId('topping-dropdown')).toBeInTheDocument()
 
     // Verify clicking again closes dropdown
-    fireEvent.click(screen.getByTestId('add-topping-tag'))
+    fireEvent.click(screen.getAllByTestId('delete-topping-tag')[0])
     expect(screen.queryByTestId('topping-dropdown')).not.toBeInTheDocument()
   })
 

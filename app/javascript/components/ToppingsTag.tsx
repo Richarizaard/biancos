@@ -1,6 +1,6 @@
-import { log } from 'console'
+import useOnClickOutside from 'utils/hooks/useOnClickOutside'
 import { Topping, useToppingsQuery } from 'gql'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface ToppingsTagProps {
   toppings: Topping[]
@@ -44,6 +44,9 @@ const ToppingsTag = ({
     (topping) => !toppings.some((existing) => existing.id === topping.id)
   )
 
+  const ref = useRef<HTMLDivElement | null>(null)
+  useOnClickOutside(ref, () => setOpenDropdown(false))
+
   return (
     <div className="w-full flex flex-wrap justify-start py-2">
       {toppings.map((topping) => {
@@ -58,7 +61,7 @@ const ToppingsTag = ({
             {isEditOrCreate && (
               <div
                 data-testid="delete-topping-tag"
-                className="cursor-pointer text-sm"
+                className="cursor-pointer text-sm flex items-center"
                 onClick={() => handleRemoveTag(topping)}
               >
                 x
@@ -67,7 +70,7 @@ const ToppingsTag = ({
           </div>
         )
       })}
-      {isEditOrCreate && filteredToppings && filteredToppings.length > 0 && (
+      {isEditOrCreate && !openDropdown && filteredToppings && filteredToppings.length > 0 && (
         <div className="relative flex items-center">
           <div
             data-testid="add-topping-tag"
@@ -79,7 +82,11 @@ const ToppingsTag = ({
         </div>
       )}
       {openDropdown && (
-        <div data-testid="topping-dropdown" className="relative py-1 px-2 w-6/12">
+        <div
+          ref={ref}
+          data-testid="topping-dropdown"
+          className="relative py-1 px-2 w-1/3"
+        >
           <div className="max-h-[150px] sm:max-h-[250px] overflow-scroll border-2 p-2 border-bianco-salmon text-bianco-red rounded-lg bg-white flex flex-col absolute">
             {filteredToppings?.map((topping) => {
               return (
