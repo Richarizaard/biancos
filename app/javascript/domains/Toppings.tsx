@@ -25,7 +25,7 @@ const Toppings = () => {
   }
 
   return (
-    <div className="container mx-auto px-6 md:px-24">
+    <div className="container mx-auto px-6 lg:px-24">
       <Header />
       <div className="flex flex-col justify-center py-6 lg:py-12">
         <BiancoHeader1 className="text-bianco-red sm:text-4xl">
@@ -40,7 +40,7 @@ const Toppings = () => {
           {data?.toppings?.length || 0} toppings
         </span>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,auto))] justify-items-center">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,auto))] justify-items-center">
         {!isChef && <EmptyToppingCard notify={notify} />}
         {data &&
           data.toppings.map((topping) => (

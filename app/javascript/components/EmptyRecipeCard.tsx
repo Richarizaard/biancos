@@ -62,7 +62,7 @@ const EmptyRecipeCard = ({ notify }: EmptyRecipeCardProps) => {
     <div
       id={'crecipe-create'}
       data-testid="empty-recipe-card"
-      className="min-h-[250px] w-[250px] text-black flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
+      className="min-h-[250px] w-[300px] text-black flex items-center flex-col border-2 p-2 m-4 rounded-3xl shadow-black hover:shadow-lg transition-all ease-in-out duration-300 opacity-100"
     >
       {isCreating ? (
         <>

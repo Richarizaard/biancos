@@ -48,7 +48,7 @@ const OUR_RESTAURANTS = [
 ]
 const Homepage = () => {
   return (
-    <div className="container mx-auto px-6 md:px-24">
+    <div className="container mx-auto px-6 lg:px-24">
       <Header />
       <img src="https://images.squarespace-cdn.com/content/v1/6099bdee28fc4e72bd84675b/1620696079215-3MMBPC9C1PNRFPXNDH0A/pizzeria-bianco.jpg" />
       <div className="my-2 py-4 text-5xl font-bold flex justify-center">
