@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import {
   Recipe,
+  RecipesDocument,
   Topping,
   useDeleteRecipeMutation,
   useUpdateRecipeMutation,
@@ -27,7 +28,10 @@ const RecipeCard = ({ recipe, notify }: RecipeCardProps) => {
     desc === recipe.description &&
     toppings === recipe.toppings
 
-  const [updateRecipe] = useUpdateRecipeMutation()
+  const [updateRecipe] = useUpdateRecipeMutation({
+    refetchQueries: [RecipesDocument],
+  })
+
   const handleUpdate = async () => {
     // Update topping's name/desc
     try {
